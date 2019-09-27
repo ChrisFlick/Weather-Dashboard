@@ -21,17 +21,83 @@
          <h1 id="header">Weather Dashboard</h1>
     </header>
     <div class="row">
-        <div class="col-md-4">
-            <h4>Search for a city</h4>
-            <form id="search">
-                <input type='text' id="weatherSearch"> 
-                <button type="submit" class="btn-primary">
-                    <i class="fa fa-search"></i>
-                </button><br>
+        <div class="col-md-3">
+            <div id="searchBar">
+                <h4>Search for a city</h4>
+                <form id="search">
+                    <input type='text' id="weatherSearch"> 
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fa fa-search"></i>
+                    </button><br>
+                </form>
+                <div id="cities"></div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class = "row">
+                <div class="card">
+                    <div class="card-body">
+                      <h2 class="card-title" >
+                          <span id="currentCity">Atlanta</span>
+                          <span class="date"></span>
+                          <span class="icon"></span>
+                    </h2>
+                      <p class="card-text">
+                          <div>Temperature: <span class='temp'>90.9</span></div>
+                          <div>Humidity: <span class='humidity'>41%</span></div>
+                          <div>Wind Speed: <span class="windSpeed">4.7 MPH</span></div>
+                          <div>UV Index: <span class="uv"></span></div>
+                      </p>
+                    </div>
+                  </div>
+            </div>
 
-            </form>
+            <div class = "row">
+                <h4>5-Day Forecast:</h4>
+            </div>
+
+            <div class = "row">
+
+
+                <div class="col-md-2 forecast">
+                    <div class="date">8/16/2019</div>
+                    <div class='icon'></div>
+                    <div>Temp: <span class="temp">90</span></div>
+                    <div>Humidity <span class="humidity">50</span>%</div>
+                </div>
+
+                <div class="col-md-2 forecast">
+                    <div class="date">8/16/2019</div>
+                    <div class='icon'></div>
+                    <div>Temp: <span class="temp">90</span></div>
+                    <div>Humidity <span class="humidity">50</span>%</div>
+                </div>
+
+                <div class="col-md-2 forecast">
+                    <div class="date">8/16/2019</div>
+                    <div class='icon'></div>
+                    <div>Temp: <span class="temp">90</span></div>
+                    <div>Humidity <span class="humidity">50</span>%</div>
+                </div>
+
+                <div class="col-md-2 forecast">
+                    <div class="date">8/16/2019</div>
+                    <div class='icon'></div>
+                    <div>Temp: <span class="temp">90</span></div>
+                    <div>Humidity <span class="humidity">50</span>%</div>
+                </div>
+
+                <div class="col-md-2 forecast">
+                    <div class="date">8/16/2019</div>
+                    <div class='icon'></div>
+                    <div>Temp: <span class="temp">90</span></div>
+                    <div>Humidity <span class="humidity">50</span>%</div>
+                </div>
+            </div>
         </div>
     </div>
     <footer>
     </footer>
+
+    <script type="text/javascript" src="../Assets/JS/main.js"></script>
 </body>

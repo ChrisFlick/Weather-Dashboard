@@ -10,6 +10,13 @@ header {
     left: 30vw;
 }
 
-.test {
-    background-color: grey;
+.card {
+    width: 100vw;
+}
+
+.forecast {
+    background-color: #007AFF;
+    height: 150px;
+    width: 150px;
+    margin: 5px;
 }
