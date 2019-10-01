@@ -1,3 +1,7 @@
+body {
+    background-color: #F8F9FB;
+}
+
 header {
     width: 100%;
     height: 50px;
@@ -17,11 +21,24 @@ header {
 .forecast {
     background-color: #007AFF;
     height: 150px;
-    width: 150px;
+    width: 125px;
     margin: 5px;
 }
 
 .uv {
     color: white;
     background-color:#D62B48;
+}
+
+.city-btn {
+    font-size: 24px;
+    border: 5px;
+    margin: 5px;
+    background-color: #FFFFFF;
+    color: 	rgb(112, 111, 111);
+}
+
+.city-btn:hover {
+    color: black;
+    cursor: pointer;
 }

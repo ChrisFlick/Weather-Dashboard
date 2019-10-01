@@ -10,10 +10,10 @@ if (cities) {
 
 $(document).ready( () => {
     for (let i = 0; i < cities.length; i++) {
-        let $btn = $('<button>');
+        let $btn = $('<div>');
         $btn.text(cities[i]);
 
-        $btn.attr('class', 'btn btn-primary city-btn')
+        $btn.attr('class', 'city-btn')
 
         $("#cities").prepend($btn)
     }
