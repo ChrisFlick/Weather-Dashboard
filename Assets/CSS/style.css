@@ -20,3 +20,8 @@ header {
     width: 150px;
     margin: 5px;
 }
+
+#uv {
+    color: white;
+    background-color:#D62B48;
+}

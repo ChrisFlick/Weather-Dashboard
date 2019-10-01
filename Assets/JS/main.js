@@ -55,22 +55,33 @@ $(document).ready( () => {
         weather.then( function(response) {
             console.log(response)
             
-            $('#currentCity').text(response.name)
-            $('#temp').text(Math.floor(response.main.temp * 1.8 - 459.67) + "°F")
-            $('#humidity').text(response.main.humidity)
-            $('#windSpeed').text(response.wind.speed)
+            $('#currentCity').text(response.city.name)
 
-            getUV(response.coord.lat, response.coord.lon).then(function (response2) {
+            $('.temp').each(function(i,obj) {
+                $(this).text(Math.floor(response.list[i].main.temp * 1.8 - 459.67) + "°F")
+            })
+
+            $('.humidity').each(function(i,obj) {
+                $(this).text(response.list[i].main.humidity)
+            })
+            
+            $('.windSpeed').each(function(i, obj) {
+                $(this).text(response.list[i].wind.speed)
+            })
+
+            getUV(response.city.coord.lat, response.city.coord.lon).then(function (response2) {
                console.log(response2)
 
                $('#uv').text(response2[0].value);
             });
+
+
         })
     })
 })
 
 function getWeather(city) {
-    let queryURL = `http://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=${API_ID}`;
+    let queryURL = `http://api.openweathermap.org/data/2.5/forecast?q=${city}&APPID=${API_ID}`;
 
     return $.ajax({
         url: queryURL,
