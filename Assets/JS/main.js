@@ -1,6 +1,88 @@
+const API_ID = 'ddc29a7389a5d9bb3eef065635bab0cf'
+
+let cities = localStorage.getItem('cities');
+
+if (cities) {
+    cities = JSON.parse(cities)
+} else {
+    cities = []
+}
+
 $(document).ready( () => {
+    for (let i = 0; i < cities.length; i++) {
+        let $btn = $('<button>');
+        $btn.text(cities[i]);
+
+        $btn.attr('class', 'btn btn-primary city-btn')
+
+        $("#cities").prepend($btn)
+    }
+
     $('#search').on('submit', function () {
         event.preventDefault();
-        console.log('hello world')
+        let input = $('#weatherSearch').val()
+        
+        if (input) {
+            let $btn = $('<button>')
+            $btn.text(input)
+
+            $btn.attr('class', 'btn btn-primary city-btn')
+    
+            $('#cities').prepend($btn)
+    
+            cities.push(input)
+            localStorage.setItem('cities', JSON.stringify(cities))
+        }
+    })
+
+    $('.city-btn').on('click', function() {
+        let city = $(this).text()
+        let citySearch = ''
+        
+        city = city.split(" ");
+
+        for (let i = 0; i < city.length; i++) {
+            citySearch += city[i];
+
+            if ( i < city.length - 1) {
+                citySearch += '+'
+            }
+        }
+
+        let weather = getWeather(citySearch);
+
+
+        weather.then( function(response) {
+            console.log(response)
+            
+            $('#currentCity').text(response.name)
+            $('#temp').text(Math.floor(response.main.temp * 1.8 - 459.67) + "°F")
+            $('#humidity').text(response.main.humidity)
+            $('#windSpeed').text(response.wind.speed)
+
+            getUV(response.coord.lat, response.coord.lon).then(function (response2) {
+               console.log(response2)
+
+               $('#uv').text(response2[0].value);
+            });
+        })
     })
 })
+
+function getWeather(city) {
+    let queryURL = `http://api.openweathermap.org/data/2.5/weather?q=${city}&APPID=${API_ID}`;
+
+    return $.ajax({
+        url: queryURL,
+        method: "GET",
+    })
+}
+
+function getUV(lat, lon) {
+    let queryURL = `http://api.openweathermap.org/data/2.5/uvi/forecast?lat=${lat}&lon=${lon}&APPID=${API_ID}`;
+
+    return $.ajax({
+        url: queryURL,
+        method: "GET",
+    })
+}
