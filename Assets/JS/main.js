@@ -35,7 +35,7 @@ $(document).ready( () => {
         }
     })
 
-    $('.city-btn').on('click', function() {
+    $(document).on('click', '.city-btn', function() {
         let city = $(this).text()
         let citySearch = ''
         
@@ -54,25 +54,35 @@ $(document).ready( () => {
 
         weather.then( function(response) {
             console.log(response)
+            let dt = new Date();
             
             $('#currentCity').text(response.city.name)
 
-            $('.temp').each(function(i,obj) {
+            $('.date').each(function(i) {
+                $(this).text(dt.getMonth() + "/" + dt.getDate() + i + "/" + dt.getFullYear())
+            });
+
+            $('.temp').each(function(i) {
                 $(this).text(Math.floor(response.list[i].main.temp * 1.8 - 459.67) + "°F")
             })
 
-            $('.humidity').each(function(i,obj) {
+            $('.humidity').each(function(i) {
                 $(this).text(response.list[i].main.humidity)
             })
             
-            $('.windSpeed').each(function(i, obj) {
+            $('.windSpeed').each(function(i) {
                 $(this).text(response.list[i].wind.speed)
             })
+
+            $(".icon").each(function(i) {
+                $(this).attr('src', `https://openweathermap.org/img/w/${response.list[i].weather[0].icon}.png`)
+            })
+
 
             getUV(response.city.coord.lat, response.city.coord.lon).then(function (response2) {
                console.log(response2)
 
-               $('#uv').text(response2[0].value);
+               $('.uv').text(response2[0].value);
             });
 
 
