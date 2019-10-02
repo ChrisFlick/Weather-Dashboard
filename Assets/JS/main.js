@@ -9,29 +9,18 @@ if (cities) {
 }
 
 $(document).ready( () => {
-    for (let i = 0; i < cities.length; i++) {
-        let $btn = $('<div>');
-        $btn.text(cities[i]);
-
-        $btn.attr('class', 'city-btn')
-
-        $("#cities").prepend($btn)
-    }
+    loadBtns();
+    
 
     $('#search').on('submit', function () {
         event.preventDefault();
         let input = $('#weatherSearch').val()
         
-        if (input) {
-            let $btn = $('<button>')
-            $btn.text(input)
-
-            $btn.attr('class', 'btn btn-primary city-btn')
-    
-            $('#cities').prepend($btn)
-    
+        if (input) {   
             cities.push(input)
             localStorage.setItem('cities', JSON.stringify(cities))
+
+            loadBtns();
         }
     })
 
@@ -54,12 +43,15 @@ $(document).ready( () => {
 
         weather.then( function(response) {
             console.log(response)
-            let dt = new Date();
             
             $('#currentCity').text(response.city.name)
 
             $('.date').each(function(i) {
-                $(this).text(dt.getMonth() + "/" + dt.getDate() + i + "/" + dt.getFullYear())
+                let date = response.list[i * 8].dt_txt
+                date = date.split("-");
+                date[2] = date[2].split(" ")[0]
+
+                $(this).text(date[1] + "/" + date[2] + "/" + date[0]);
             });
 
             $('.temp').each(function(i) {
@@ -91,7 +83,7 @@ $(document).ready( () => {
 })
 
 function getWeather(city) {
-    let queryURL = `http://api.openweathermap.org/data/2.5/forecast?q=${city}&APPID=${API_ID}`;
+    let queryURL = `http://api.openweathermap.org/data/2.5/forecast/?q=${city}&APPID=${API_ID}`;
 
     return $.ajax({
         url: queryURL,
@@ -106,4 +98,18 @@ function getUV(lat, lon) {
         url: queryURL,
         method: "GET",
     })
+}
+
+function loadBtns() {
+    $('#cities').empty();
+
+    for (let i = 0; i < cities.length; i++) {
+        
+        let $btn = $('<div>');
+        $btn.text(cities[i]);
+
+        $btn.attr('class', 'city-btn')
+
+        $("#cities").prepend($btn)
+    }
 }
