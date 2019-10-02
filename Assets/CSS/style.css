@@ -42,3 +42,7 @@ header {
     color: black;
     cursor: pointer;
 }
+
+.forecast {
+    color: white;
+}
