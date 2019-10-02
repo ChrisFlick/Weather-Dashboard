@@ -38,10 +38,23 @@ $(document).ready( () => {
             }
         }
 
+
+        let forecast = getForecast(citySearch);
         let weather = getWeather(citySearch);
 
+        weather.then(function(response) {
+            console.log(response);
 
-        weather.then( function(response) {
+            $('#date').text()
+            $('#icon').attr('src', `https://openweathermap.org/img/w/${response.weather[0].icon}.png`)
+            $('#temp').text(Math.floor(response.main.temp * 1.8 - 459.67) + "°F")
+            $('#windSpeed').text(response.wind.speed)
+            $('#humidity').text(response.main.humidity)
+
+        })
+
+
+        forecast.then( function(response) {
             console.log(response)
             
             $('#currentCity').text(response.city.name)
@@ -74,7 +87,7 @@ $(document).ready( () => {
             getUV(response.city.coord.lat, response.city.coord.lon).then(function (response2) {
                console.log(response2)
 
-               $('.uv').text(response2[0].value);
+               $('#uv').text(response2[0].value);
             });
 
 
@@ -82,8 +95,17 @@ $(document).ready( () => {
     })
 })
 
-function getWeather(city) {
+function getForecast(city) {
     let queryURL = `https://api.openweathermap.org/data/2.5/forecast/?q=${city}&APPID=${API_ID}`;
+
+    return $.ajax({
+        url: queryURL,
+        method: "GET",
+    })
+}
+
+function getWeather(city) {
+    let queryURL = `https://api.openweathermap.org/data/2.5/weather/?q=${city}&APPID=${API_ID}`;
 
     return $.ajax({
         url: queryURL,
