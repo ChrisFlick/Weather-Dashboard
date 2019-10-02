@@ -83,7 +83,7 @@ $(document).ready( () => {
 })
 
 function getWeather(city) {
-    let queryURL = `http://api.openweathermap.org/data/2.5/forecast/?q=${city}&APPID=${API_ID}`;
+    let queryURL = `https://api.openweathermap.org/data/2.5/forecast/?q=${city}&APPID=${API_ID}`;
 
     return $.ajax({
         url: queryURL,
@@ -92,7 +92,7 @@ function getWeather(city) {
 }
 
 function getUV(lat, lon) {
-    let queryURL = `http://api.openweathermap.org/data/2.5/uvi/forecast?lat=${lat}&lon=${lon}&APPID=${API_ID}`;
+    let queryURL = `https://api.openweathermap.org/data/2.5/uvi/forecast?lat=${lat}&lon=${lon}&APPID=${API_ID}`;
 
     return $.ajax({
         url: queryURL,
